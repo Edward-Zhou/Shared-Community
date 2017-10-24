@@ -63,6 +63,9 @@ namespace SharedCommunity
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            //seed init data
+            DataSeed.InitializeData(app.ApplicationServices).Wait();
         }
     }
 }
