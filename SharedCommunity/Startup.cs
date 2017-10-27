@@ -11,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using SharedCommunity.Data;
 using SharedCommunity.Models;
 using SharedCommunity.Services;
+using SharedCommunity.Helpers;
+using SharedCommunity.Services.Pattern;
+using SharedCommunity.Models.Entities;
 
 namespace SharedCommunity
 {
@@ -26,6 +29,10 @@ namespace SharedCommunity
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //add options service to configure appsettings
+            services.AddOptions();
+            services.Configure<ConstConfigOptions>(Configuration.GetSection("ConstConfig"));
+
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -35,6 +42,10 @@ namespace SharedCommunity
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+
+            //Add own services
+            services.AddScoped<IRepository<Image>, Repository<Image>>();
+            services.AddScoped<IImageService, ImageService>();
 
             services.AddMvc();
         }
@@ -65,7 +76,7 @@ namespace SharedCommunity
             });
 
             //seed init data
-            DataSeed.InitializeData(app.ApplicationServices).Wait();
+            //DataSeed.InitializeData(app.ApplicationServices).Wait();
         }
     }
 }

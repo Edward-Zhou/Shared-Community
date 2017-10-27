@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SharedCommunity.Models;
+using SharedCommunity.Models.Entities;
 
 namespace SharedCommunity.Data
 {

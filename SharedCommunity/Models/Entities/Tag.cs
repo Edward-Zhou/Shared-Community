@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SharedCommunity.Models
+namespace SharedCommunity.Models.Entities
 {
-    public class Tag : BasicModel
+    public class Tag : EntityBase
     {
         public List<ImageTag> ImageTags { get; set; }
     }

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using SharedCommunity.Models.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace SharedCommunity.Models
+namespace SharedCommunity.Models.Entities
 {
-    public class Image : BasicModel
+    public class Image : EntityBase
     {
         public string Url { get; set; }
         public string Description { get; set; }
