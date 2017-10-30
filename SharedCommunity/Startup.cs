@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Hosting;
@@ -14,6 +10,7 @@ using SharedCommunity.Services;
 using SharedCommunity.Helpers;
 using SharedCommunity.Services.Pattern;
 using SharedCommunity.Models.Entities;
+using SharedCommunity.Authentication;
 
 namespace SharedCommunity
 {
@@ -24,7 +21,7 @@ namespace SharedCommunity
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
+        public IConfiguration Configuration { get; }   
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -32,6 +29,7 @@ namespace SharedCommunity
             //add options service to configure appsettings
             services.AddOptions();
             services.Configure<ConstConfigOptions>(Configuration.GetSection("ConstConfig"));
+            services.Configure<AuthConfigOptions>(Configuration.GetSection("Authentication"));
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
@@ -46,6 +44,8 @@ namespace SharedCommunity
             //Add own services
             services.AddScoped<IRepository<Image>, Repository<Image>>();
             services.AddScoped<IImageService, ImageService>();
+
+            AuthConfigure.AddJwtBearer(services, Configuration);
 
             services.AddMvc();
         }
@@ -67,6 +67,8 @@ namespace SharedCommunity
             app.UseStaticFiles();
 
             app.UseAuthentication();
+
+            //configure jwt
 
             app.UseMvc(routes =>
             {
