@@ -2,34 +2,45 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
+using SharedCommunity.Authentication.JwtBearer;
 using SharedCommunity.Helpers;
 using System;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace SharedCommunity.Authentication
 {
     public class AuthConfigure
     {
-        public const string AuthenticationScheme = "cookie";        
+        public const string AuthenticationScheme = "cookie"; 
+        public static AuthConfigOptions authConfig { get; set; }
         public static void AddJwtBearer(IServiceCollection services, IConfiguration configuration )
         {
-            var authConfig = new AuthConfigOptions();
+            authConfig = new AuthConfigOptions();
             configuration.GetSection("Authentication").Bind(authConfig);
             if (authConfig.JwtBearerConfig.IsEnabled)
             {
-                ConfigureJwtBearerAuthentication(services, authConfig);
+                ConfigureJwtBearerAuthentication(services);
             }
         }
 
-        public static void UseJwtBearer(IApplicationBuilder app, AuthConfigOptions authConfig)
+        public static void UseJwtBearer(IApplicationBuilder app)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(authConfig.JwtBearerConfig.SecurityKey));
             // Adding JWT generation endpoint
-            //app.UseJwtBearerAuthentication();
+            app.UseMiddleware<TokenProviderMiddleware>(Options.Create(new TokenProviderOptions
+            {
+                Path = authConfig.JwtBearerConfig.Path,
+                Issuer = authConfig.JwtBearerConfig.Issuer,
+                Audience = authConfig.JwtBearerConfig.Audience,
+                SigningCredentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256),
+                Expiration = TimeSpan.FromDays(authConfig.JwtBearerConfig.Expiration)
+            }));
         }
 
-        private static void ConfigureJwtBearerAuthentication(IServiceCollection services, AuthConfigOptions authConfig)
+        private static void ConfigureJwtBearerAuthentication(IServiceCollection services)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(authConfig.JwtBearerConfig.SecurityKey));
 
@@ -42,6 +53,9 @@ namespace SharedCommunity.Authentication
             {
                 option.SaveToken = true;
                 option.RequireHttpsMetadata = false;
+                option.Events = new JwtBearerEvents {
+                    OnTokenValidated = OnTokenValidated
+                };
                 option.TokenValidationParameters = new TokenValidationParameters
                 {
                     // The signing key must match!
@@ -63,6 +77,11 @@ namespace SharedCommunity.Authentication
                     ClockSkew = TimeSpan.Zero
                 };
             });
+        }
+
+        private static Task OnTokenValidated(TokenValidatedContext context)
+        {
+            return Task.FromResult(0);
         }
     }
 }

@@ -65,7 +65,7 @@ namespace SharedCommunity
             }
 
             app.UseStaticFiles();
-
+            AuthConfigure.UseJwtBearer(app);
             app.UseAuthentication();
 
             //configure jwt

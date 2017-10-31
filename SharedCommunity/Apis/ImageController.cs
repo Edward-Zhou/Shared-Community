@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using SharedCommunity.Helpers;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 namespace SharedCommunity.Apis
 {
     [Route("api/[controller]")]
+    [Authorize]
     public class ImageController : BaseController<Image>
     {
         public ImageController(IImageService imageService, IOptions<ConstConfigOptions> constConfig) : base(imageService, constConfig)
