@@ -1,55 +1,20 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import { RouterModule, Routes, UrlSerializer} from '@angular/router';
-
-import { AppComponent } from './app.component';
-import { ImageShareComponent} from 'imageShare/imageShare.component';
-import { FunnyShareComponent} from 'funnyShare/funnyShare.component';
-import { NavMenuComponent} from 'navmenu/navmenu.component';
-import { SlideMenuComponent } from 'slidemenu/slidemenu.component';
-import {ContentBodyComponent} from 'contentbody/contentbody.component';
-
-//command method
-import { LowerCaseUrlSerializer} from 'common/lowerCaseUrlSerializer';
-import { MaterialImportModule} from 'common/materialImportModule';
-
-//control
-import { CardImageControl} from 'common/control/cardImage/cardImage.control';
-
-
-const appRoutes: Routes = [
-  { path: 'imageshare', component:ImageShareComponent},
-  { path: 'funnyshare', component:FunnyShareComponent},
-  { path: '', redirectTo:'/imageshare', pathMatch: 'full'}
-]
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from './app-routing.module';
+import { MainComponent} from './main/main.component';
+import { AppComponent } from "./app.component";
+import { LoginModule } from "./login/login.module";
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ImageShareComponent,
-    FunnyShareComponent,
-    NavMenuComponent,
-    SlideMenuComponent,
-    ContentBodyComponent,
-    //control
-    CardImageControl
-  ],
-  imports: [
-    RouterModule.forRoot(
-      appRoutes,
-      {enableTracing : true}
-    ),
-    BrowserModule,
-    MaterialImportModule,
-    FormsModule,
-    HttpModule
-  ],
-  providers: [{
-    provide:UrlSerializer,
-    useClass:LowerCaseUrlSerializer
-  }],
-  bootstrap: [AppComponent]
+    declarations: [
+        MainComponent,
+        AppComponent
+    ],
+    imports:[
+        BrowserModule,        
+        LoginModule,
+        AppRoutingModule        
+    ],
+    bootstrap: [MainComponent]
 })
-export class AppModule { }
+export class AppModule{}
