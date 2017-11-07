@@ -19,8 +19,10 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad{
     }
 
     isLogin(url: string): boolean{
-        if(this.authService.accountLogin){ return true;}
-
+        if(this.authService.isAccountlogin()){ 
+            return true;
+        }
+        alert('please log in below access security information');
         // Navigate to the login page with extras
         this.router.navigate(['/login']);
         return false;

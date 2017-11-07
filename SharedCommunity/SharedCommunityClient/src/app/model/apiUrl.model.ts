@@ -1,4 +1,4 @@
-export class APIUrl {
+export class APIUrl {    
     //login
-    accountLogin = () => '/token/auth'
+    accountLogin = () => `/token/auth`
 }

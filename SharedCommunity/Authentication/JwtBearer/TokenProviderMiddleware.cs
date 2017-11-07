@@ -52,10 +52,10 @@ namespace SharedCommunity.Authentication.JwtBearer
 
         private async Task GenerateToken(HttpContext context, UserManager<ApplicationUser> userManager)
         {
-            var username = context.Request.Form["username"];
+            var account = context.Request.Form["account"];
             var password = context.Request.Form["password"];
 
-            var identity = await GetIdentity(username, password, userManager);
+            var identity = await GetIdentity(account, password, userManager);
             if (identity == null)
             {
                 context.Response.StatusCode = 400;
@@ -66,7 +66,7 @@ namespace SharedCommunity.Authentication.JwtBearer
             // Specifically add the jti (random nonce), iat (issued timestamp), and sub (subject/user) claims.
             // You can add other claims here, if you want:
             var claims = new Claim[] {
-                new Claim(JwtRegisteredClaimNames.Sub, username),
+                new Claim(JwtRegisteredClaimNames.Sub, account),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(JwtRegisteredClaimNames.Iat, DateTimeOffset.Now.ToUnixTimeSeconds().ToString(), ClaimValueTypes.Integer64)
             };

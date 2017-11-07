@@ -37,7 +37,17 @@ namespace SharedCommunity
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
-
+            //Add CORS
+            services.AddCors(options => {
+                options.AddPolicy("AllowAllOrigin",
+                    builder =>
+                    {
+                        builder.AllowAnyOrigin()
+                               .AllowAnyHeader()
+                               .AllowAnyMethod()
+                               .AllowCredentials();
+                    });
+            });
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
 
@@ -65,6 +75,7 @@ namespace SharedCommunity
             }
 
             app.UseStaticFiles();
+            app.UseCors("AllowAllOrigin");
             AuthConfigure.UseJwtBearer(app);
             app.UseAuthentication();
 
@@ -78,7 +89,7 @@ namespace SharedCommunity
             });
 
             //seed init data
-            //DataSeed.InitializeData(app.ApplicationServices).Wait();
+            DataSeed.InitializeData(app.ApplicationServices).Wait();
         }
     }
 }

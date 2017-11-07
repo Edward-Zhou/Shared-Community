@@ -3,8 +3,10 @@ import { Router } from '@angular/router';
 import { Http, Headers, Response, RequestOptionsArgs, RequestOptions } from '@angular/http';
 import { tokenNotExpired, AuthHttp } from 'angular2-jwt';
 import { Observable } from 'rxjs';
+import 'rxjs/Rx';
 import { APIUrl } from '../model/apiUrl.model';
-import { UserInfo } from '../model/user.model';
+import { UserInfo, UserLoginResponse } from '../model/user.model';
+import { HttpClient } from "@angular/common/http";
 
 @Injectable()
 
@@ -15,7 +17,7 @@ export class AuthService{
     apiUrl: APIUrl = new APIUrl();
     public userUpdated: EventEmitter<boolean>;
 
-    constructor(private http: Http, private router:Router){
+    constructor(private http: HttpClient, private router:Router){
         this.userUpdated = new EventEmitter();
     }
 
@@ -23,24 +25,23 @@ export class AuthService{
         let formData = new FormData();
         formData.append('account', account);
         formData.append('password', password);
-        return this.http.post(this.apiUrl.accountLogin(), formData)
-            .map((response: Response) =>{
-                let responseJson = response.json();
-                let token = responseJson && responseJson.access_token;
-                let userInfo = responseJson && responseJson.user_info as UserInfo
-                if(token){
-                    this.token = token;
-                    localStorage.setItem('currentUser', JSON.stringify(userInfo));
-                    localStorage.setItem('token', token);
-                    return true;
-                }
-                else{
-                    return false;
-                }
-            })
+        return this.http.post<UserLoginResponse>(this.apiUrl.accountLogin(), formData)
+               .map( 
+                   response => {
+                        let token = response.access_token;
+                        localStorage.setItem('token', token);
+                        return true;
+                    },
+                    error =>{
+                        console.log('error');
+                        return false;
+                    }
+                );
     }
-
-    public accountLogout():void{
+    public isAccountlogin(){
+        return tokenNotExpired('token');
+    }
+    public accountLogout():void {
         localStorage.removeItem('token');
         this.router.navigate(['/']);
     }
