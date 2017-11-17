@@ -11,7 +11,7 @@ namespace SharedCommunity.Services.Pattern
 {
     public abstract class Service<TEntity> : IService<TEntity> where TEntity : EntityBase, IObjectState
     {
-        private readonly IRepository<TEntity> _repository;
+        public readonly IRepository<TEntity> _repository;
 
         protected Service(IRepository<TEntity> repository) => _repository = repository;
 
@@ -21,6 +21,7 @@ namespace SharedCommunity.Services.Pattern
 
         public virtual async Task<TEntity> FindAsync(params object[] keyValues) => await _repository.FindAsync(keyValues);
 
+        public virtual async Task<TEntity> FindByKeyAsync(string key) => await _repository.DbSet.Where(entity => entity.Name == key && entity.Deleted ==false).FirstOrDefaultAsync();
 
         public virtual async Task InsertAsync(TEntity entity) => await _repository.InsertAsync(entity);
 

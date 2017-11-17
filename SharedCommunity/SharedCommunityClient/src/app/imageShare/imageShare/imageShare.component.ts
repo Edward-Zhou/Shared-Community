@@ -12,5 +12,6 @@ export class ImageShareComponent{
         id:'I1',
         title:'',
         subtitle:''
-    }    
+    }   
+    
 }

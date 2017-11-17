@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using SharedCommunity.Helpers;
 using SharedCommunity.Models.Entities;
 using SharedCommunity.Services.Pattern;
@@ -15,11 +16,17 @@ namespace SharedCommunity.Apis
     {
         protected readonly IService<TEntity> _service;
         protected readonly ConstConfigOptions _constConfig;
+        protected readonly JsonSerializerSettings _apiSerializerSettings;
 
         protected BaseController(IService<TEntity> service, IOptions<ConstConfigOptions> constConfig)
         {
             _service = service;
             _constConfig = constConfig.Value;
+            _apiSerializerSettings = new JsonSerializerSettings
+            {
+                Formatting = Formatting.Indented,
+                ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
+            };
         }
     }
 }

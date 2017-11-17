@@ -9,7 +9,8 @@ import { RequestBasicUrlInterceptor } from "./helpers/requestBasicUrlInterceptor
 import { UrlSerializer } from "@angular/router";
 import { LowerCaseUrlSerializer } from "./helpers/lowerCaseUrlSerializer";
 import { ImageShareModule } from "./imageShare/imageShare.module";
-import { AuthGuard } from "app/auth/authGuard.service";
+import { AuthGuard } from "./auth/authGuard.service";
+import { TokenInterceptor } from "./helpers/tokenInterceptor";
 
 @NgModule({
     declarations: [
@@ -28,6 +29,10 @@ import { AuthGuard } from "app/auth/authGuard.service";
         { 
             provide: HTTP_INTERCEPTORS, 
             useClass: RequestBasicUrlInterceptor, 
+            multi: true },
+        { 
+            provide: HTTP_INTERCEPTORS, 
+            useClass: TokenInterceptor, 
             multi: true },
         { 
             provide: UrlSerializer, 

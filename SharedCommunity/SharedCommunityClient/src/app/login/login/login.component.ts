@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit{
         this.authSerivce.accountLogin(this.loginForm.get('account').value, this.loginForm.get('password').value)
             .subscribe(successed => {
                 if(successed){
-                    this.router.navigate(['/']);                    
+                    this.router.navigate(['/imageshare']);                    
                 }
             });
     }

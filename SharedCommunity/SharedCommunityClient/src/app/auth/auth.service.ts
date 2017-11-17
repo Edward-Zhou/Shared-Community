@@ -1,7 +1,6 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { Http, Headers, Response, RequestOptionsArgs, RequestOptions } from '@angular/http';
-import { tokenNotExpired, AuthHttp } from 'angular2-jwt';
+import { tokenNotExpired } from 'angular2-jwt';
 import { Observable } from 'rxjs';
 import 'rxjs/Rx';
 import { APIUrl } from '../model/apiUrl.model';
@@ -13,7 +12,6 @@ import { HttpClient } from "@angular/common/http";
 export class AuthService{
     public token: string;
     redirectUrl: string;
-    requestArgs: RequestOptionsArgs;
     apiUrl: APIUrl = new APIUrl();
     public userUpdated: EventEmitter<boolean>;
 
@@ -45,7 +43,9 @@ export class AuthService{
         localStorage.removeItem('token');
         this.router.navigate(['/']);
     }
-
+    public getToken(): string{
+        return localStorage.getItem('token');
+    }
     public getUserInfo(): UserInfo{
         if(tokenNotExpired('token')){
             return JSON.parse(localStorage.getItem('currentUser')) as UserInfo;

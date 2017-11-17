@@ -9,7 +9,6 @@ namespace SharedCommunity.Services
 {
     public interface IImageService : IService<Image>
     {
-
     }
     public class ImageService : Service<Image>, IImageService
     {

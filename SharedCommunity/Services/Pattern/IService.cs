@@ -16,6 +16,7 @@ namespace SharedCommunity.Services.Pattern
         Task UpdateAsync(TEntity entity);
         Task UpdateAsync(IEnumerable<TEntity> entities);
         Task<TEntity> FindAsync(params object[] keyValues);
+        Task<TEntity> FindByKeyAsync(string key);
         IQueryable<TEntity> Queryable();
         IEnumerable<TEntity> Filter(out int totalCount,
             Expression<Func<TEntity, bool>> where = null,
