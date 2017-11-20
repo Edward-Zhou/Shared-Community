@@ -5,13 +5,13 @@ using Microsoft.Extensions.Options;
 using SharedCommunity.Helpers;
 using SharedCommunity.Models;
 using SharedCommunity.Models.Entities;
-using SharedCommunity.Models.ViewModels;
 using SharedCommunity.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using SharedCommunity.ViewModels;
 
 namespace SharedCommunity.Apis
 {

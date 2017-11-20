@@ -1,0 +1,45 @@
+<header class="navbar navbar-fixed-top">
+    <div class="navbar-branding">
+        <a class="navbar-brand">
+            <b>Sensing             
+            </b>
+        </a>
+        <span id="toggle_sidemenu_l" class="ad ad-lines"></span>
+    </div>
+    <ul class="nav navbar-nav navbar-left">
+        <li class="hidden-xs">
+            <a class="request-fullscreen toggle-active">
+                <span class="ad ad-screen-full fs18"></span>
+            </a>
+        </li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <a> <ng-container i18n="@@super">Super</ng-container> </a>
+        </li>
+        <li class="menu-divider hidden-xs">
+            <i class="fa fa-circle"></i>
+        </li>
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="layout_navbar-static.html#">
+                <span class="fa fa-bell fs18"></span>
+            </a>            
+        </li>
+        <li class="dropdown">
+            <a href="layout_navbar-static.html#" class="dropdown-toggle fw600 p15" data-toggle="dropdown"> <img src="dist/assets/img/avatars/1.jpg" alt="avatar" class="mw30 br64 mr15"> {{userInfo.UserName}}
+                <span class="caret caret-tp hidden-xs"></span>
+            </a>
+            <ul class="dropdown-menu list-group dropdown-persist w250" role="menu">
+                <li class="list-group-item">
+                    <a [routerLink]="['/management/profile']">
+                        <i class="iconfontyyy">&#xe61e;</i> <ng-container i18n="@@Profile">用户概况</ng-container> </a>
+                </li>
+                <li class="list-group-item">
+                    <a (click)="logout()">
+                        <i class="iconfontyyy">&#xe6ae;</i> <ng-container i18n="@@logout">退出</ng-container> </a>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+</header>

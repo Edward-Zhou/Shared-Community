@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using SharedCommunity.Models;
+using SharedCommunity.ViewModels.User;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -85,7 +86,8 @@ namespace SharedCommunity.Authentication.JwtBearer
             //return user information
             var response = new {
                 access_token = encodedJwt,
-                expires_in = (int)_options.Expiration.TotalSeconds
+                expires_in = (int)_options.Expiration.TotalSeconds,
+                userInfo = new JwtUserVM { UserName = account }
             };
 
             //Serialize and return the response

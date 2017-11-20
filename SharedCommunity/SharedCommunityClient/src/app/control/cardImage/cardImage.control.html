@@ -1,0 +1,18 @@
+<mat-card class="card-image">
+  <mat-card-header *ngIf="cardImage.title && cardImage.subtitle">
+    <div mat-card-avatar class="card-image-header"></div>
+    <mat-card-title *ngIf="cardImage.title">{{cardImage.title}}</mat-card-title>
+    <mat-card-subtitle *ngIf="cardImage.subtitle">{{cardImage.subtitle}}</mat-card-subtitle>
+  </mat-card-header>
+  <img class="card-image-image" mat-card-image src="http://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+  <mat-card-content>
+    <p>
+      The Shiba Inu is the smallest of the six.
+    </p>
+  </mat-card-content>
+  <mat-card-actions>    
+    <button mat-button>owner</button>
+    <button mat-button><i class="material-icons">star</i>LIKE</button>
+    <button mat-button>SHARE</button>
+  </mat-card-actions>
+</mat-card>

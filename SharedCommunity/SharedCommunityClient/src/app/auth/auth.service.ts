@@ -27,7 +27,9 @@ export class AuthService{
                .map( 
                    response => {
                         let token = response.access_token;
+                        let userInfo = response.userInfo;
                         localStorage.setItem('token', token);
+                        localStorage.setItem('currentUser', JSON.stringify(userInfo));
                         return true;
                     },
                     error =>{
@@ -46,10 +48,12 @@ export class AuthService{
     public getToken(): string{
         return localStorage.getItem('token');
     }
-    public getUserInfo(): UserInfo{
+    get userInfo(): UserInfo{
         if(tokenNotExpired('token')){
             return JSON.parse(localStorage.getItem('currentUser')) as UserInfo;
         }
         return null;
     }
 }
+
+export var emitter = new EventEmitter()

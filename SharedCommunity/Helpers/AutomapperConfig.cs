@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using SharedCommunity.Models.Entities;
-using SharedCommunity.Models.ViewModels;
+using SharedCommunity.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
