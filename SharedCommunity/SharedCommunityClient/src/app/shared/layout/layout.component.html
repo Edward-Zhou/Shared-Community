@@ -1,29 +1,12 @@
-<div id="main">
-  <hearderNav></hearderNav>
-  <!-- <asideLeft></asideLeft> -->
-  <section id="content_wrapper">
-    <header id="topbar" class="" [ngStyle]="{marginTop: '60px'}" >
-      <div class="topbar-left">
-        <ol *ngIf="breadlist" class="breadcrumb">
-          <li class="crumb-active crumb-icon">
-            <a href="dashboard.html">
-              <span class="glyphicon glyphicon-home"></span>
-            </a>
-          </li>
-          <li *ngFor="let bread of breadlist">
-            <a *ngIf="bread.url && bread.name" [routerLink]="[bread.url]" [ngStyle]="{color: '#369'}">{{bread.name}}</a>
-            <span *ngIf="!bread.url && bread.name">{{bread.name}}</span>
-          </li>
-        </ol>
-      </div>
-    </header>
-    <router-outlet></router-outlet>
-    <footer id="content-footer" class="affix">
-      <div class="row">
-        <div class="col-md-12">
-          <span class="footer-legal">© 2017 Sensing Store</span>
-        </div>
-      </div>
-    </footer>
-  </section>
-</div>
+
+<hearderNav></hearderNav>
+<slide-menu></slide-menu>
+<div class="container">
+    <router-outlet></router-outlet>  
+</div>     
+<footer class="footer">
+    <div class="container">
+      <span class="text-muted">Place sticky footer content here.</span>
+    </div>
+</footer>
+

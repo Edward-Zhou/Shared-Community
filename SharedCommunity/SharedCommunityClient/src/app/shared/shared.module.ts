@@ -6,6 +6,7 @@ import { CommonModule } from "@angular/common";
 import { MaterialImportModule } from './materialImportModule';
 import { LayoutComponent } from './layout/layout.component';
 import { TopnavbarComponent } from './topnavbar/topnavbar.component';
+import { SlideMenuComponent} from './slidemenu/slidemenu.component';
 import { RouterModule } from "@angular/router";
 
 @NgModule({
@@ -19,7 +20,8 @@ import { RouterModule } from "@angular/router";
     ],
     declarations: [
         LayoutComponent,
-        TopnavbarComponent
+        TopnavbarComponent,
+        SlideMenuComponent
     ],
     exports: [
         RouterModule,
@@ -29,7 +31,8 @@ import { RouterModule } from "@angular/router";
         CommonModule,
         MaterialImportModule,
         LayoutComponent,
-        TopnavbarComponent
+        TopnavbarComponent,
+        SlideMenuComponent
     ],
     providers: [
         AuthService
