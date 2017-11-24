@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="HtmlAgilityPack" Version="1.6.5" />
+    <PackageReference Include="Lemon.Data.Core" Version="1.0.0.8" />
+    <PackageReference Include="Lemon.Data.IO" Version="1.0.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Kivi.Platform.Core.SDK\Kivi.Platform.Core.SDK.csproj" />
+    <ProjectReference Include="..\LemonCore.Data.Core\LemonCore.Core.csproj" />
+    <ProjectReference Include="..\LemonCore.IO\LemonCore.IO.csproj" />
+  </ItemGroup>
+
+</Project>

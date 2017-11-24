@@ -1,9 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.10
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedCommunity", "SharedCommunity\SharedCommunity.csproj", "{252F5A43-5A96-459F-881A-B4A570A5A322}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedCommunity", "SharedCommunity\SharedCommunity.csproj", "{252F5A43-5A96-459F-881A-B4A570A5A322}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForumData.Pipelines", "ForumData.Pipelines\ForumData.Pipelines.csproj", "{CB8BBEE0-0BD4-45A3-A312-5F074DCA48AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kivi.Platform.Core.SDK", "Kivi.Platform.Core.SDK\Kivi.Platform.Core.SDK.csproj", "{6B78F7C5-A47F-4140-8094-C90836406186}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LemonCore.Core", "LemonCore.Data.Core\LemonCore.Core.csproj", "{3ABED884-586D-4C97-9622-09E2C0E6C7CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LemonCore.IO", "LemonCore.IO\LemonCore.IO.csproj", "{E4723F63-9C54-43E8-9693-6000514AB1C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,22 @@ Global
 		{252F5A43-5A96-459F-881A-B4A570A5A322}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{252F5A43-5A96-459F-881A-B4A570A5A322}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{252F5A43-5A96-459F-881A-B4A570A5A322}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CB8BBEE0-0BD4-45A3-A312-5F074DCA48AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CB8BBEE0-0BD4-45A3-A312-5F074DCA48AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CB8BBEE0-0BD4-45A3-A312-5F074DCA48AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CB8BBEE0-0BD4-45A3-A312-5F074DCA48AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B78F7C5-A47F-4140-8094-C90836406186}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B78F7C5-A47F-4140-8094-C90836406186}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B78F7C5-A47F-4140-8094-C90836406186}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B78F7C5-A47F-4140-8094-C90836406186}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ABED884-586D-4C97-9622-09E2C0E6C7CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ABED884-586D-4C97-9622-09E2C0E6C7CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ABED884-586D-4C97-9622-09E2C0E6C7CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ABED884-586D-4C97-9622-09E2C0E6C7CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E4723F63-9C54-43E8-9693-6000514AB1C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E4723F63-9C54-43E8-9693-6000514AB1C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E4723F63-9C54-43E8-9693-6000514AB1C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E4723F63-9C54-43E8-9693-6000514AB1C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

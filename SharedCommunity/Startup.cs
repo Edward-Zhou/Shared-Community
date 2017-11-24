@@ -11,6 +11,7 @@ using SharedCommunity.Helpers;
 using SharedCommunity.Services.Pattern;
 using SharedCommunity.Models.Entities;
 using SharedCommunity.Authentication;
+using SharedCommunity.Extensions;
 
 namespace SharedCommunity
 {
@@ -30,6 +31,7 @@ namespace SharedCommunity
             services.AddOptions();
             services.Configure<ConstConfigOptions>(Configuration.GetSection("ConstConfig"));
             services.Configure<AuthConfigOptions>(Configuration.GetSection("Authentication"));
+            services.ConfigureWritable<AuthConfigOptions>(Configuration.GetSection("ConstConfig"));
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));

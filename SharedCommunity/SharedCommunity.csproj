@@ -13,6 +13,10 @@
     <None Remove="SharedCommunityClient\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Include="MSDNSupport\ViewRenderService.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="6.1.1" />
@@ -27,6 +31,10 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
     <DotNetCliToolReference Include="Microsoft.Extensions.SecretManager.Tools" Version="2.0.0" />
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ForumData.Pipelines\ForumData.Pipelines.csproj" />
   </ItemGroup>
 
 </Project>

@@ -20,6 +20,8 @@ namespace SharedCommunity.Data
             {
                 var db = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
 
+                
+
                 await InsertInitData(serviceScope.ServiceProvider, createUsers);
             }
         }
