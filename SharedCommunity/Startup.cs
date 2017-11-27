@@ -12,6 +12,8 @@ using SharedCommunity.Services.Pattern;
 using SharedCommunity.Models.Entities;
 using SharedCommunity.Authentication;
 using SharedCommunity.Extensions;
+using Kivi.Platform.Core.SDK;
+using ForumData.Pipelines;
 
 namespace SharedCommunity
 {
@@ -56,6 +58,8 @@ namespace SharedCommunity
             //Add own services
             services.AddScoped<IRepository<Image>, Repository<Image>>();
             services.AddScoped<IImageService, ImageService>();
+            //Forum services
+            services.AddScoped<ICommand, DownloadMSDNQuestions>((conn)=> new DownloadMSDNQuestions(Configuration.GetConnectionString("DefaultConnection")));
 
             AuthConfigure.AddJwtBearer(services, Configuration);
 

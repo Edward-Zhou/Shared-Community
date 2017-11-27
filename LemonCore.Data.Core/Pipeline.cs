@@ -20,7 +20,7 @@ namespace LemonCore.Core
         public Pipeline()
         {
             _id = Guid.NewGuid();
-            _logger = LogService.Default.GetLog("Pipeline");
+            //_logger = LogService.Default.GetLog("Pipeline");
         }
         public TransformActionChain<TSource> DataSource<TSource>(IDataReader<TSource> reader)
         {
@@ -54,7 +54,7 @@ namespace LemonCore.Core
                     PropagateCompletion = true
                 });
 
-            return new Execution(async () => {
+            return new Execution(async (IDictionary<string, object> parameters) => {
                 while (reader.Next())
                 {
                     try
@@ -98,7 +98,7 @@ namespace LemonCore.Core
             if (node.NodeType == NodeType.ActionNode)
             {
                 var target = node as ITarget;
-                var nodeClass = typeof(Lemon.Data.Core.ActionNode<>).MakeGenericType(target.TargetType);
+                var nodeClass = typeof(ActionNode<>).MakeGenericType(target.TargetType);
                 var actionBlockClass = typeof(ActionBlock<>).MakeGenericType(target.TargetType);
                 var writeFunc = nodeClass.GetProperty("Write").GetValue(node);
                 var actionBlock = BlockBuilder.CreateActionBlock(target.TargetType, writeFunc, executionOptions);

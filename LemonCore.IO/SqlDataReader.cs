@@ -1,6 +1,5 @@
 ﻿using Dapper;
-using Lemon.Data.Core;
-using System;
+using LemonCore.Core.Interfaces;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -83,7 +82,7 @@ namespace LemonCore.IO
             return _enumerator.Current;
         }
 
-        object Lemon.Data.Core.IDataReader.Read()
+        object Core.Interfaces.IDataReader.Read()
         {
             return Read();
         }

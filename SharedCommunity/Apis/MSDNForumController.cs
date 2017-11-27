@@ -1,5 +1,7 @@
 ﻿using ForumData.Pipelines;
+using Kivi.Platform.Core.SDK;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,12 +13,19 @@ namespace SharedCommunity.Apis
     [Route("api/MSDNForum")]
     public class MSDNForumController : Controller
     {
+        private IConfiguration _configuration;
+        private DownloadMSDNQuestions _command;
+
+        public MSDNForumController(IConfiguration configuration, ICommand command)
+        {
+            _configuration = configuration;
+            _command = (DownloadMSDNQuestions)command;
+        }
         [HttpGet]
         [Route("MSDNThreadDownload")]
         public async Task<string> MSDNThreadDownload()
         {
-            DownloadMSDNQuestions command = new DownloadMSDNQuestions(null);
-            command.Run("");
+            await Task.Run(() =>_command.Run("exceldev,alltypes,firstpostdesc,1"));
             return "OK";
         }
     }

@@ -58,20 +58,6 @@ namespace LemonCore.Core
             return new TransformActionChain<TTarget>(node);
         }
 
-        public void Output(LemonCore.IO.JsonConsoleWriter<global::ForumData.Pipelines.Models.MsdnQuestionIndexEntity> jsonConsoleWriter)
-        {
-            throw new NotImplementedException();
-        }
-
-        public TransformActionChain<TTarget> TransformMany<TTarget>(ITransformManyBlock<TSource, TTarget> block, int? maxDegreeOfParallelism = null)
-        {
-            return TransformMany(block.Transform, maxDegreeOfParallelism);
-        }
-
-        public TransformActionChain<TTarget> Transform<TTarget>(ITransformBlock<TSource, TTarget> block, int? maxDegreeOfParallelism = null)
-        {
-            return Transform(block.Transform, maxDegreeOfParallelism);
-        }
         public void Output(IDataWriter<TSource> writer)
         {
             ActionNode<TSource> next = new ActionNode<TSource>
@@ -84,6 +70,16 @@ namespace LemonCore.Core
                 return;
             }
             throw new Exception("Node type does not support output");
+        }
+
+        public TransformActionChain<TTarget> TransformMany<TTarget>(ITransformManyBlock<TSource, TTarget> block, int? maxDegreeOfParallelism = null)
+        {
+            return TransformMany(block.Transform, maxDegreeOfParallelism);
+        }
+
+        public TransformActionChain<TTarget> Transform<TTarget>(ITransformBlock<TSource, TTarget> block, int? maxDegreeOfParallelism = null)
+        {
+            return Transform(block.Transform, maxDegreeOfParallelism);
         }
         public void Write(IDataWriter<TSource> writer)
         {

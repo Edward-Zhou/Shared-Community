@@ -1,5 +1,6 @@
 ﻿using Dapper;
-using Lemon.Data.Core;
+using LemonCore.Core.Interfaces;
+using LemonCore.Core.Services;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;

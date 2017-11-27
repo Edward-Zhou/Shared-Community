@@ -8,11 +8,11 @@ namespace LemonCore.Core
 {
     public class Execution : IExecute
     {
-        private Func<Task<bool>> _block;
+        private Func<IDictionary<string, object>, Task<bool>> _block;
 
-        public Execution(Func<Task<bool>> block)
+        public Execution(Func<IDictionary<string, object>, Task<bool>> block)
         {
-            _block = block;
+            this._block = block;
         }
 
         public bool Run(IDictionary<string, object> namedParameters)
@@ -20,14 +20,9 @@ namespace LemonCore.Core
             throw new NotImplementedException();
         }
 
-        public Task<bool> RunAsync()
-        {
-            return _block();
-        }
-
         public Task<bool> RunAsync(IDictionary<string, object> namedParameters)
         {
-            throw new NotImplementedException();
+            return this._block(namedParameters);
         }
     }
 }

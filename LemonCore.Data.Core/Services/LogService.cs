@@ -13,14 +13,19 @@ namespace LemonCore.Core.Services
 {
     public class LogService
     {
-        public static LogService Default = new LogService();
+        private ILog _logger;
+        public static LogService Default;
         public static ILoggerRepository Repository = LogManager.GetRepository(Assembly.GetEntryAssembly());
         static LogService()
         {
-            SetupLog4Net();
+            LogService.Default = new LogService();
+            LogService.SetupLog4Net();
         }
 
-        private LogService() { }
+        private LogService()
+        {
+            this._logger = GetLog("lemon.log");
+        }
 
         public ILog GetLog(string name)
         {
@@ -59,6 +64,21 @@ namespace LemonCore.Core.Services
             hierarchy.Root.AddAppender(rollingFileAppender);
             hierarchy.Root.Level = Level.Info;
             hierarchy.Configured = true;
+        }
+
+        public void Info(string message)
+        {
+            this._logger.Info(message);
+        }
+
+        public void Error(string message, Exception ex = null)
+        {
+            this._logger.Error(message, ex);
+        }
+
+        public void Error(string message)
+        {
+            this._logger.Error(message);
         }
     }
 }

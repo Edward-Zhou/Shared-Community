@@ -1,11 +1,11 @@
-﻿using Lemon.Data.Core;
+﻿using LemonCore.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace LemonCore.IO
 {
-    public class JsonConsoleWriter<T> : IDataWriter<T>
+    public class JsonConsoleWriter<T> : Core.Interfaces.IDataWriter<T>
     {
         private long _index;
 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using SharedCommunity.Models;
 using SharedCommunity.Models.Entities;
+using ForumData.Pipelines.Models;
 
 namespace SharedCommunity.Data
 {
@@ -17,6 +18,8 @@ namespace SharedCommunity.Data
         }
         public DbSet<Image> Images { get; set; }
         public DbSet<Tag> Tags { get; set; }
+        //Forum Data
+        public DbSet<MsdnQuestionIndexEntity> MsdnQuestionIndexEntity { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -31,6 +34,8 @@ namespace SharedCommunity.Data
                 .HasOne(t => t.Tag)
                 .WithMany(it => it.ImageTags)
                 .HasForeignKey(key=>key.TagId);
+            //forum tables
+            builder.Entity<MsdnQuestionIndexEntity>().ToTable("msdn_question_index");
         }
     }
 }
