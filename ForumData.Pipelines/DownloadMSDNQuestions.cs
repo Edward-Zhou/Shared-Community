@@ -1,4 +1,5 @@
 ﻿using ForumData.Pipelines.Models;
+using ForumData.Pipelines.MSDN;
 using Kivi.Platform.Core.SDK;
 using LemonCore.Core;
 using LemonCore.IO;
@@ -32,7 +33,14 @@ namespace ForumData.Pipelines
             var writter = new SqlDataWriter<MsdnQuestionIndexEntity>(_localStageConnectionString, "msdn_question_index", WriteMode.Upsert);
             pipeline.DataSource(new DatasourceWrapper<string>(GenerateRequests(forumId, filter, sort, pageNum)))
                      .Transform(url => _agent.GetString(url))
-                     .TransformMany(html => MsdnIndexPageParser.Parse(html,DateTime.Now))   
+                     .TransformMany(html => MsdnIndexPageParser.Parse(html,DateTime.Now))
+                     .Transform(thread => 
+                     {
+                         thread.LastActiveOn = UserProfileParser.LastActiveOn(
+                             _agent.GetString(UserProfileParser.GenerateRequest(thread.CreatedBy)), 
+                             DateTime.Now);
+                         return thread;
+                     })
                      .Output(writter);
 
             return PipelineUtil.BuildAndRun(pipeline);

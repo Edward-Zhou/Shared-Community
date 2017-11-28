@@ -17,5 +17,6 @@ namespace ForumData.Pipelines.Models
         public int Replies { get; set; }
         public int Views { get; set; }
         public string Forum { get; set; }
+        public DateTime? LastActiveOn { get; set; }
     }
 }
