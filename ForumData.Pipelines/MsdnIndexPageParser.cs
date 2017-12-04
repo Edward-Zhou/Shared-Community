@@ -9,7 +9,7 @@ namespace ForumData.Pipelines
 {
     public class MsdnIndexPageParser
     {
-        public static IEnumerable<MsdnQuestionIndexEntity> Parse(string html, DateTime referTimestamp)
+        public static IEnumerable<MsdnQuestionIndexEntity> Parse(string html, DateTime referTimestamp, DateTime startTimestamp)
         {
             var list = new List<MsdnQuestionIndexEntity>();
             var htmlDocument = new HtmlDocument();
@@ -50,6 +50,10 @@ namespace ForumData.Pipelines
                 var frumCrumbNode = node.SelectSingleNode("div/div[@data-forumdetailsurl]");
                 var forumDetailUrl = frumCrumbNode.Attributes["data-forumdetailsurl"].Value;
                 var forum = new Regex("forum=(.+)", RegexOptions.IgnoreCase).Match(forumDetailUrl).Groups[1].Value;
+                if(createdOn < startTimestamp)
+                {
+                    return list;
+                }
                 list.Add(new MsdnQuestionIndexEntity
                 {
                     Id = id,

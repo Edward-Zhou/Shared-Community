@@ -36,7 +36,7 @@ namespace ForumData.Pipelines.Helper
             {
                 var millisecond =new Regex(@"(\d+)");
                 var millisecondMatch = millisecond.Match(dateTimeString);
-                DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+                DateTime origin = new DateTime(1970, 1, 1, 8, 0, 0, 0, DateTimeKind.Utc);
                 datetime = (origin.AddSeconds((Convert.ToInt64(millisecondMatch.Groups[1].Value) / 1000)));
             }            
             return datetime;

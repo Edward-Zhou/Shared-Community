@@ -25,7 +25,7 @@ namespace SharedCommunity.Apis
         [Route("MSDNThreadDownload")]
         public async Task<string> MSDNThreadDownload()
         {
-            await Task.Run(() =>_command.Run("exceldev,alltypes,firstpostdesc,1"));
+            await Task.Run(() =>_command.Run("appsforoffice,officegeneral,accessdev,exceldev,outlookdev,worddev,oxmlsdk,vsto;alltypes;firstpostdesc;23"));
             return "OK";
         }
     }
