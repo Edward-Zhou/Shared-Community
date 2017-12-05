@@ -36,7 +36,6 @@ namespace ForumData.Pipelines
             pipeline.DataSource(new DatasourceWrapper<string>(GenerateRequests(forumId, filter, sort, pageNum)))
                      .Transform(url => _agent.GetString(url))
                      .TransformMany(html => MsdnIndexPageParser.Parse(html, DateTime.Now, new DateTime(DateTime.Now.Year, month, 1)))
-                     .Transform(thread => UserProfileParser.Parse(thread))
                      .Output(writter);
 
             return PipelineUtil.BuildAndRun(pipeline);
