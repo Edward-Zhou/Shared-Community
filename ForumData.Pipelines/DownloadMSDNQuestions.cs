@@ -45,8 +45,7 @@ namespace ForumData.Pipelines
         private IEnumerable<string> GenerateRequests(string forumId, string filter, string sort, int pageNum = 20)
         {
             var requests = new List<string>();
-            pageNum = 5;
-            for (int i = pageNum; i >= 4; i--)
+            for (int i = pageNum; i >= 1; i--)
             {
                 var request = string.Format(URL_FORMAT, forumId, filter, sort, i);
                 requests.Add(request);

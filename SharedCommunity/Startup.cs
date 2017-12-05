@@ -86,7 +86,7 @@ namespace SharedCommunity
             app.UseAuthentication();
 
             //configure jwt
-
+            app.UseExceptionHandler(AspNetCoreModuleExceptionMiddleware.OutPutException());
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
