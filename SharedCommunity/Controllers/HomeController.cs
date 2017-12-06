@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SharedCommunity.Authorization;
 using SharedCommunity.Models;
 
 namespace SharedCommunity.Controllers
@@ -14,7 +16,8 @@ namespace SharedCommunity.Controllers
         {
             return View();
         }
-
+        [Authorize]
+        [AuthorizeCore("Role", "Admin")]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -22,10 +25,11 @@ namespace SharedCommunity.Controllers
             return View();
         }
 
+        [Authorize]
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
-
+            var user = User.Identity.Name;
             return View();
         }
 

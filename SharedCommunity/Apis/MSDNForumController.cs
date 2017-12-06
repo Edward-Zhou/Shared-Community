@@ -3,6 +3,7 @@ using ForumData.Pipelines.MSDN;
 using Kivi.Platform.Core.SDK;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using SharedCommunity.Authorization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace SharedCommunity.Apis
             
         }
         [HttpGet]
+        [AuthorizeCore("Role","Admin")]
         [Route("MSDNThreadDownload")]
         public async Task<string> MSDNThreadDownload()
         {

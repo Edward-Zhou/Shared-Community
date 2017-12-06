@@ -74,7 +74,9 @@ namespace SharedCommunity.Authentication
                     ValidateLifetime = true,
 
                     // If you want to allow a certain amount of clock drift, set that here
-                    ClockSkew = TimeSpan.Zero
+                    ClockSkew = TimeSpan.Zero,
+
+                    NameClaimType = "name"
                 };
             });
         }

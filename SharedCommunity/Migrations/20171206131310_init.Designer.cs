@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using SharedCommunity.Data;
 using System;
 
-namespace SharedCommunity.Data.Migrations
+namespace SharedCommunity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171027081839_change-base-class")]
-    partial class changebaseclass
+    [Migration("20171206131310_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -20,6 +20,38 @@ namespace SharedCommunity.Data.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("ForumData.Pipelines.Models.MsdnQuestionIndexEntity", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CreatedBy");
+
+                    b.Property<DateTime>("CreatedOn");
+
+                    b.Property<string>("Forum");
+
+                    b.Property<DateTime?>("LastActiveOn");
+
+                    b.Property<string>("LastPostBy");
+
+                    b.Property<DateTime?>("LastPostOn");
+
+                    b.Property<int>("Replies");
+
+                    b.Property<string>("State");
+
+                    b.Property<string>("Title");
+
+                    b.Property<string>("Uri");
+
+                    b.Property<int>("Views");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("msdn_question_index");
+                });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
                 {
