@@ -35,14 +35,15 @@ namespace SharedCommunity.Authorization
                 ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver()
             };
         }
-        public async void OnAuthorization(AuthorizationFilterContext context)
+        public void OnAuthorization(AuthorizationFilterContext context)
         {
             var claims = _claim.Value.Split(',');
-            var userName = context.HttpContext.User.Identity.Name;
-            var user = await _userManager.FindByNameAsync(userName);
+
+            var user = _userManager.GetUserAsync(context.HttpContext.User).Result;
             if (_claim.Type == ClaimType.Role.ToString())
             {
-                if (!_userManager.IsInRoleAsync(user, _claim.Value).Result)
+                var isAuthor = _userManager.IsInRoleAsync(user, _claim.Value).Result;
+                if (!isAuthor)
                 {
                     context.Result = new JsonResult(new WebApiResult { status = ApiStatus.NG, message = "用户权限不够" }, _apiSerializerSettings);
                 }

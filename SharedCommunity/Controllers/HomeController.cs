@@ -16,16 +16,15 @@ namespace SharedCommunity.Controllers
         {
             return View();
         }
-        [Authorize]
-        [AuthorizeCore("Role", "Admin")]
+        [AuthorizeCore("Role", "Admin,Viewer")]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
 
             return View();
         }
-
-        [Authorize]
+        //[Authorize(Roles = "XX", Policy = "XX", Permission="Read")]
+        [CustomAuthorize(Groups = "Test")]
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";

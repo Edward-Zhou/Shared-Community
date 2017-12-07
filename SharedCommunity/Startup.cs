@@ -14,6 +14,8 @@ using SharedCommunity.Authentication;
 using SharedCommunity.Extensions;
 using Kivi.Platform.Core.SDK;
 using ForumData.Pipelines;
+using SharedCommunity.Authorization;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SharedCommunity
 {
@@ -36,7 +38,7 @@ namespace SharedCommunity
             services.ConfigureWritable<AuthConfigOptions>(Configuration.GetSection("ConstConfig"));
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("LocalConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -54,12 +56,18 @@ namespace SharedCommunity
             });
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
+            //Authorize
+            //services.AddAuthorization(options =>
+            //{
 
+            //    options.AddPolicy("grou", policy => new CustomAuthorizationPolicyBuilder().RequireGroup());
+            //});
+            services.AddSingleton<IAuthorizationHandler,CustomAuthorizationHandler>();
             //Add own services
             services.AddScoped<IRepository<Image>, Repository<Image>>();
             services.AddScoped<IImageService, ImageService>();
             //Forum services
-            services.AddScoped<ICommand, DownloadMSDNQuestions>((conn)=> new DownloadMSDNQuestions(Configuration.GetConnectionString("LocalConnection")));
+            services.AddScoped<ICommand, DownloadMSDNQuestions>((conn)=> new DownloadMSDNQuestions(Configuration.GetConnectionString("DefaultConnection")));
 
             AuthConfigure.AddJwtBearer(services, Configuration);
 
@@ -86,7 +94,7 @@ namespace SharedCommunity
             app.UseAuthentication();
 
 
-            //AuthConfigure.UseJwtBearer(app);
+            AuthConfigure.UseJwtBearer(app);
 
             //configure jwt
             app.UseExceptionHandler(AspNetCoreModuleExceptionMiddleware.OutPutException());

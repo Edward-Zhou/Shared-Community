@@ -43,12 +43,14 @@ namespace SharedCommunity.Authentication
         private static void ConfigureJwtBearerAuthentication(IServiceCollection services)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(authConfig.JwtBearerConfig.SecurityKey));
-
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
+            //these lines will disable Cookie authentication
+            //services.AddAuthentication(options =>
+            //{
+            //    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            //})
+            services.AddAuthentication()
+            .AddCookie()
             .AddJwtBearer(option =>
             {
                 option.SaveToken = true;
