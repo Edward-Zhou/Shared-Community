@@ -22,8 +22,7 @@ namespace SharedCommunity.Apis
             _configuration = configuration;
             
         }
-        [HttpGet]
-        [AuthorizeCore("Role","Admin")]
+        [HttpGet]        
         [Route("MSDNThreadDownload")]
         public async Task<string> MSDNThreadDownload()
         {

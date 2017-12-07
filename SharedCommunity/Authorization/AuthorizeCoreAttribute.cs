@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Newtonsoft.Json;
@@ -13,21 +14,20 @@ namespace SharedCommunity.Authorization
 {
     public class AuthorizeCoreAttribute : TypeFilterAttribute
     {
-        public AuthorizeCoreAttribute(string claimType, string claimValue) : base(typeof(AuthorizeCoreRequirementFilter))
+        public AuthorizeCoreAttribute(string Groups="", string Roles="", string Permissions="") : base(typeof(AuthorizeCoreRequirementFilter))
         {
-            Arguments = new object[] { new Claim(claimType, claimValue) };
+            Arguments = new object[] { new Author { Groups = Groups, Roles = Roles, Permissions = Permissions } };
         }
     }
-
     public class AuthorizeCoreRequirementFilter : IAuthorizationFilter
     {
-        private readonly Claim _claim;
+        private readonly Author _author;
         private readonly UserManager<ApplicationUser> _userManager;
         protected readonly JsonSerializerSettings _apiSerializerSettings;
 
-        public AuthorizeCoreRequirementFilter(Claim claim, UserManager<ApplicationUser> userManager)
+        public AuthorizeCoreRequirementFilter(Author author, UserManager<ApplicationUser> userManager)
         {
-            _claim = claim;
+            _author = author;
             _userManager = userManager;
             _apiSerializerSettings = new JsonSerializerSettings
             {
@@ -37,24 +37,41 @@ namespace SharedCommunity.Authorization
         }
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var claims = _claim.Value.Split(',');
-
+            bool isGroupsAuthorized = true;
+            bool isRolesAuthorized = true;
+            bool isPermissionAuthorized = true;
             var user = _userManager.GetUserAsync(context.HttpContext.User).Result;
-            if (_claim.Type == ClaimType.Role.ToString())
+            if (user == null)
             {
-                var isAuthor = _userManager.IsInRoleAsync(user, _claim.Value).Result;
-                if (!isAuthor)
-                {
-                    context.Result = new JsonResult(new WebApiResult { status = ApiStatus.NG, message = "用户权限不够" }, _apiSerializerSettings);
-                }
+                context.Result = new JsonResult(new WebApiResult { status = ApiStatus.NG, message = "用户权限不够" }, _apiSerializerSettings);
+                return;
             }
+            var groupsSplit = _author.Groups?.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(r => r.Trim());
+            if(groupsSplit !=null && groupsSplit.Any())
+            {
+                isGroupsAuthorized = true;
+            }
+            var rolesSplit = _author.Roles?.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(r=>r.Trim());
+            if (rolesSplit !=null && rolesSplit.Any())
+            {
+                isRolesAuthorized = rolesSplit.Any(role=> _userManager.IsInRoleAsync(user, role).Result);
+            }
+            var permissonsSplit = _author.Permissions?.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(r => r.Trim());
+            if (permissonsSplit != null && permissonsSplit.Any())
+            {
+                isPermissionAuthorized = true;
+            }
+            if (isGroupsAuthorized==false || isRolesAuthorized==false ||isPermissionAuthorized==false)
+            {
+                context.Result = new JsonResult(new WebApiResult { status = ApiStatus.NG, message = "用户权限不够" }, _apiSerializerSettings);
+            }
+
         }
     }
-
-    public enum ClaimType
+    public class Author
     {
-        Group,
-        Role
+        public string Groups { get; set; }
+        public string Roles { get; set; }
+        public string Permissions { get; set; }
     }
-
 }

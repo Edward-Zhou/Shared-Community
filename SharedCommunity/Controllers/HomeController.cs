@@ -16,7 +16,7 @@ namespace SharedCommunity.Controllers
         {
             return View();
         }
-        [AuthorizeCore("Role", "Admin,Viewer")]
+        [AuthorizeCore(Groups: "Test",Roles:"Admin")]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
@@ -24,7 +24,7 @@ namespace SharedCommunity.Controllers
             return View();
         }
         //[Authorize(Roles = "XX", Policy = "XX", Permission="Read")]
-        [CustomAuthorize(Groups = "Test")]
+        //[CustomAuthorize(Groups = "Test")]
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
