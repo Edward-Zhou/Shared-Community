@@ -29,13 +29,11 @@ namespace ForumData.Pipelines
             string sort = tokens[2];
             int pageNum = int.Parse(tokens[3]);
 
-            var month = DateTime.Now.Day <= 5 ? DateTime.Now.Month - 1 : DateTime.Now.Month;
-
             var pipeline = new Pipeline { BoundedCapacity = 20 };
             var writter = new SqlDataWriter<MsdnQuestionIndexEntity>(_localStageConnectionString, "msdn_question_index", WriteMode.Upsert);
             pipeline.DataSource(new DatasourceWrapper<string>(GenerateRequests(forumId, filter, sort, pageNum)))
                      .Transform(url => _agent.GetString(url))
-                     .TransformMany(html => MsdnIndexPageParser.Parse(html, DateTime.Now, new DateTime(DateTime.Now.Year, month, 1)))
+                     .TransformMany(html => MsdnIndexPageParser.Parse(html, DateTime.Now))
                      .Output(writter);
 
             return PipelineUtil.BuildAndRun(pipeline);
@@ -44,7 +42,7 @@ namespace ForumData.Pipelines
         private IEnumerable<string> GenerateRequests(string forumId, string filter, string sort, int pageNum = 20)
         {
             var requests = new List<string>();
-            for (int i = pageNum; i >= 1; i--)
+            for (int i = 1; i <= pageNum; i++)
             {
                 var request = string.Format(URL_FORMAT, forumId, filter, sort, i);
                 requests.Add(request);

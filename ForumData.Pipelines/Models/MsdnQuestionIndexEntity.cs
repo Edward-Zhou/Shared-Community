@@ -18,5 +18,7 @@ namespace ForumData.Pipelines.Models
         public int Views { get; set; }
         public string Forum { get; set; }
         public DateTime? LastActiveOn { get; set; }
+        //public DateTime? UpdateOn { get; set; }
+        //public bool Deleted { get; set; }
     }
 }
