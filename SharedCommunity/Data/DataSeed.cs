@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using SharedCommunity.Extensions;
 using SharedCommunity.Models.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace SharedCommunity.Data
 {
@@ -18,10 +19,9 @@ namespace SharedCommunity.Data
         {
             using (var serviceScope = serviceProvider.GetRequiredService<IServiceScopeFactory>().CreateScope())
             {
-                var db = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
-
-                
-
+                var context = serviceScope.ServiceProvider.GetService<ApplicationDbContext>();
+                //if (!context.Database.EnsureCreated())
+                //    context.Database.Migrate();
                 await InsertInitData(serviceScope.ServiceProvider, createUsers);
             }
         }

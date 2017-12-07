@@ -8,13 +8,12 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using SharedCommunity.Data;
 using System;
 
-namespace SharedCommunity.Data.Migrations
+namespace SharedCommunity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171128075515_LastActiveOn")]
-    partial class LastActiveOn
+    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
