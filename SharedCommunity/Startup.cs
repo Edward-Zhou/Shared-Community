@@ -16,6 +16,8 @@ using Kivi.Platform.Core.SDK;
 using ForumData.Pipelines;
 using SharedCommunity.Authorization;
 using Microsoft.AspNetCore.Authorization;
+using System.Data.Common;
+using System.Data.SqlClient;
 
 namespace SharedCommunity
 {
@@ -27,7 +29,6 @@ namespace SharedCommunity
         }
 
         public IConfiguration Configuration { get; }   
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -68,7 +69,8 @@ namespace SharedCommunity
             services.AddScoped<IImageService, ImageService>();
             //Forum services
             services.AddScoped<ICommand, DownloadMSDNQuestions>((conn)=> new DownloadMSDNQuestions(Configuration.GetConnectionString("LocalConnection")));
-
+            //dapper
+            services.AddScoped<DbConnection>( _ => new SqlConnection(Configuration.GetConnectionString("DefaultConnection")));
             AuthConfigure.AddJwtBearer(services, Configuration);
 
             services.AddMvc();
