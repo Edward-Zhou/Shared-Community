@@ -39,7 +39,7 @@ namespace SharedCommunity
             services.ConfigureWritable<AuthConfigOptions>(Configuration.GetSection("ConstConfig"));
 
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("LocalConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -68,7 +68,7 @@ namespace SharedCommunity
             services.AddScoped<IRepository<Image>, Repository<Image>>();
             services.AddScoped<IImageService, ImageService>();
             //Forum services
-            services.AddScoped<ICommand, DownloadMSDNQuestions>((conn)=> new DownloadMSDNQuestions(Configuration.GetConnectionString("LocalConnection")));
+            services.AddScoped<ICommand, DownloadMSDNQuestions>((conn)=> new DownloadMSDNQuestions(Configuration.GetConnectionString("DefaultConnection")));
             //dapper
             services.AddScoped<DbConnection>( _ => new SqlConnection(Configuration.GetConnectionString("DefaultConnection")));
             AuthConfigure.AddJwtBearer(services, Configuration);

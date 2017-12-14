@@ -8,6 +8,7 @@ namespace SharedCommunity.Helpers
     public class AuthConfigOptions
     {
         public JwtBearerOptions JwtBearerConfig { get; set; }
+        public GoogleOptions GoogleConfig { get; set; }
     }
     public class JwtBearerOptions
     {
@@ -17,5 +18,11 @@ namespace SharedCommunity.Helpers
         public string Issuer { get; set; }
         public string Audience { get; set; }
         public int Expiration { get; set; }
+    }
+
+    public class GoogleOptions
+    {
+        public string ClientId { get; set; }
+        public string ClientSecret { get; set; }
     }
 }

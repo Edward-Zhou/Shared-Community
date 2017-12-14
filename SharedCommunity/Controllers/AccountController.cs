@@ -261,7 +261,8 @@ namespace SharedCommunity.Controllers
             var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
             return Challenge(properties, provider);
         }
-
+        //Understanding the Owin External Authentication Pipeline
+        //https://coding.abel.nu/2014/06/understanding-the-owin-external-authentication-pipeline/
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
@@ -311,7 +312,8 @@ namespace SharedCommunity.Controllers
                 {
                     throw new ApplicationException("Error loading external login information during confirmation.");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var avatar = info.Principal.FindFirstValue("profileImg");
+                var user = new ApplicationUser { UserName = model.Email, Email = model.Email, Avatar = avatar };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

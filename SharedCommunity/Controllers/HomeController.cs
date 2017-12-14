@@ -7,11 +7,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SharedCommunity.Authorization;
 using SharedCommunity.Models;
+using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace SharedCommunity.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly SignInManager<ApplicationUser> _signInManager;
+        public HomeController(SignInManager<ApplicationUser> signInManager)
+        {
+            _signInManager = signInManager;
+        }
         public IActionResult Index()
         {
             return View();
@@ -29,6 +37,7 @@ namespace SharedCommunity.Controllers
         {
             ViewData["Message"] = "Your contact page.";
             var user = User.Identity.Name;
+            var info = _signInManager.Context.User;
             return View();
         }
 

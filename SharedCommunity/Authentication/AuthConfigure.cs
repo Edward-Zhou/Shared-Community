@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using SharedCommunity.Authentication.JwtBearer;
 using SharedCommunity.Helpers;
 using System;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -50,6 +52,21 @@ namespace SharedCommunity.Authentication
             //    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             //})
             services.AddAuthentication()
+            .AddGoogle(googleOptions =>
+            {
+                googleOptions.ClientId = authConfig.GoogleConfig.ClientId;
+                googleOptions.ClientSecret = authConfig.GoogleConfig.ClientSecret;                
+                googleOptions.Events = new OAuthEvents
+                {
+                    OnCreatingTicket = context =>
+                    {
+                        var identity = (ClaimsIdentity)context.Principal.Identity;
+                        var profileImg = context.User["image"].Value<string>("url");
+                        identity.AddClaim(new Claim("profileImg", profileImg));
+                        return Task.FromResult(0);
+                    }
+                };
+            })
             .AddCookie()
             .AddJwtBearer(option =>
             {
