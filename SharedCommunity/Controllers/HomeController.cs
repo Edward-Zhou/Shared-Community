@@ -10,15 +10,18 @@ using SharedCommunity.Models;
 using static Microsoft.AspNetCore.Hosting.Internal.HostingApplication;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
+using SharedCommunity.Helpers;
 
 namespace SharedCommunity.Controllers
 {
     public class HomeController : Controller
     {
         private readonly SignInManager<ApplicationUser> _signInManager;
-        public HomeController(SignInManager<ApplicationUser> signInManager)
+        private readonly IEmailSender _emailSender;
+        public HomeController(SignInManager<ApplicationUser> signInManager, IEmailSender emailSender)
         {
             _signInManager = signInManager;
+            _emailSender = emailSender;
         }
         public IActionResult Index()
         {
@@ -40,7 +43,11 @@ namespace SharedCommunity.Controllers
             var info = _signInManager.Context.User;
             return View();
         }
-
+        public IActionResult SendMail()
+        {
+            _emailSender.SmtpEmailAsync("Test","Hello World","v-tazho@hotmail.com");
+            return Ok("Successfully");
+        }
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

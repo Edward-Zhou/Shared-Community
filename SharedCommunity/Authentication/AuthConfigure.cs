@@ -55,7 +55,7 @@ namespace SharedCommunity.Authentication
             .AddGoogle(googleOptions =>
             {
                 googleOptions.ClientId = authConfig.GoogleConfig.ClientId;
-                googleOptions.ClientSecret = authConfig.GoogleConfig.ClientSecret;                
+                googleOptions.ClientSecret = authConfig.GoogleConfig.ClientSecret;
                 googleOptions.Events = new OAuthEvents
                 {
                     OnCreatingTicket = context =>

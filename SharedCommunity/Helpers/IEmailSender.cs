@@ -8,5 +8,7 @@ namespace SharedCommunity.Helpers
     public interface IEmailSender
     {
         Task SendEmailAsync(string email, string subject, string message);
+
+        Task SmtpEmailAsync(string subject, string message, string receiver);
     }
 }
