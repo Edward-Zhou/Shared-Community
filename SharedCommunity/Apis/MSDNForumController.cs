@@ -34,7 +34,7 @@ namespace SharedCommunity.Apis
         public async Task<string> MSDNThreadDownload()
         {
             DownloadMSDNQuestions _command = new DownloadMSDNQuestions(_configuration.GetConnectionString("DefaultConnection"));
-            await Task.Run(() =>_command.Run("appsforoffice,officegeneral,accessdev,exceldev,outlookdev,worddev,oxmlsdk,vsto;alltypes;firstpostdesc;10"));
+            await Task.Run(() =>_command.Run("appsforoffice,officegeneral,accessdev,exceldev,outlookdev,worddev,oxmlsdk,vsto;alltypes;firstpostdesc;15"));
             return "OK";
         }
         [HttpGet]

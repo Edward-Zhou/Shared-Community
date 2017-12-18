@@ -27,7 +27,7 @@ namespace SharedCommunity.Controllers
         {
             return View();
         }
-        [AuthorizeCore(Groups: "Test",Roles:"Admin")]
+        [AuthorizeCore(Groups: "Test",Roles:"Admin", Claims: "issuer")]
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";

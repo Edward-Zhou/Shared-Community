@@ -18,6 +18,7 @@ using SharedCommunity.Authorization;
 using Microsoft.AspNetCore.Authorization;
 using System.Data.Common;
 using System.Data.SqlClient;
+using System;
 
 namespace SharedCommunity
 {
@@ -79,6 +80,10 @@ namespace SharedCommunity
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            var configuration = new ConfigurationBuilder()
+                                    .AddEnvironmentVariables()
+                                    .Build();
+            string environment = configuration.GetSection("SharedCommunity").Value;
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

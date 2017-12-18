@@ -14,9 +14,9 @@ namespace SharedCommunity.Authorization
 {
     public class AuthorizeCoreAttribute : TypeFilterAttribute
     {
-        public AuthorizeCoreAttribute(string Groups="", string Roles="", string Permissions="") : base(typeof(AuthorizeCoreRequirementFilter))
+        public AuthorizeCoreAttribute(string Groups="", string Roles="", string Permissions="", string Claims="") : base(typeof(AuthorizeCoreRequirementFilter))
         {
-            Arguments = new object[] { new Author { Groups = Groups, Roles = Roles, Permissions = Permissions } };
+            Arguments = new object[] { new Author { Groups = Groups, Roles = Roles, Permissions = Permissions, Claims = Claims } };
         }
     }
     public class AuthorizeCoreRequirementFilter : IAuthorizationFilter
@@ -40,6 +40,7 @@ namespace SharedCommunity.Authorization
             bool isGroupsAuthorized = true;
             bool isRolesAuthorized = true;
             bool isPermissionAuthorized = true;
+            bool isClaimsAhthorized = true;
             var user = _userManager.GetUserAsync(context.HttpContext.User).Result;
             if (user == null)
             {
@@ -55,6 +56,11 @@ namespace SharedCommunity.Authorization
             if (rolesSplit !=null && rolesSplit.Any())
             {
                 isRolesAuthorized = rolesSplit.Any(role=> _userManager.IsInRoleAsync(user, role).Result);
+            }
+            var claimsSplit = _author.Claims?.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(c => c.Trim());
+            if(claimsSplit != null && claimsSplit.Any())
+            {
+                isClaimsAhthorized = claimsSplit.Any(claim => context.HttpContext.User.Claims.Any(uc => uc.Type == claim.ToString()) == true);
             }
             var permissonsSplit = _author.Permissions?.Split(',', StringSplitOptions.RemoveEmptyEntries).Select(r => r.Trim());
             if (permissonsSplit != null && permissonsSplit.Any())
@@ -73,5 +79,6 @@ namespace SharedCommunity.Authorization
         public string Groups { get; set; }
         public string Roles { get; set; }
         public string Permissions { get; set; }
+        public string Claims { get; set; }
     }
 }
