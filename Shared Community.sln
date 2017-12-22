@@ -13,7 +13,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LemonCore.Core", "LemonCore
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LemonCore.IO", "LemonCore.IO\LemonCore.IO.csproj", "{E4723F63-9C54-43E8-9693-6000514AB1C1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedCommunity.IntegrationTest", "SharedCommunity.IntegrationTest\SharedCommunity.IntegrationTest.csproj", "{4910026E-E71C-4CF6-BB5A-8738A9DD35A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedCommunity.IntegrationTest", "SharedCommunity.IntegrationTest\SharedCommunity.IntegrationTest.csproj", "{4910026E-E71C-4CF6-BB5A-8738A9DD35A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedCommunity.XunitTest", "SharedCommunity.XunitTest\SharedCommunity.XunitTest.csproj", "{24F34009-B93B-44E2-A762-B309044A6774}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{4910026E-E71C-4CF6-BB5A-8738A9DD35A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4910026E-E71C-4CF6-BB5A-8738A9DD35A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4910026E-E71C-4CF6-BB5A-8738A9DD35A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24F34009-B93B-44E2-A762-B309044A6774}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24F34009-B93B-44E2-A762-B309044A6774}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24F34009-B93B-44E2-A762-B309044A6774}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24F34009-B93B-44E2-A762-B309044A6774}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

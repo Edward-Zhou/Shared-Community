@@ -42,7 +42,7 @@ namespace SharedCommunity.Apis
         public async Task<string> UpdateUserLastActivity()
         {
             UpdateUserLastActivity _command = new UpdateUserLastActivity(_configuration.GetConnectionString("DefaultConnection"));
-            await Task.Run(() => _command.Run("2017-12-01;2017-12-14"));
+            await Task.Run(() => _command.Run("2017-12-01;" + DateTime.Now.ToShortDateString()));
             return "OK";
         }
         [HttpGet]
