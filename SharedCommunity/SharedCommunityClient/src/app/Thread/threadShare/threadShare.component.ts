@@ -1,9 +1,9 @@
 import { Component, ViewChild} from "@angular/core";
-import { MaterialImportModule} from 'common/materialImportModule';
-
+import{  SharedModule } from '../../shared/shared.module';
+import { MatTableDataSource, MatPaginator, MatSort } from "@angular/material";
 @Component({
     selector:'threadShare',
-    templateUrl:'threadShare.component.html'
+    templateUrl:'threadShare.component.html',
 })
 
 export class ThreadShareComponent{
@@ -11,6 +11,7 @@ export class ThreadShareComponent{
     dataSource = new MatTableDataSource<Element>(ELEMENT_DATA);
   
     @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
   
     /**
      * Set the paginator after the view init since this component will
@@ -18,6 +19,7 @@ export class ThreadShareComponent{
      */
     ngAfterViewInit() {
       this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
     }
 }
 export interface Element {

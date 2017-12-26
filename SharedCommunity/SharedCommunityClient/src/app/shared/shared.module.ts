@@ -8,6 +8,7 @@ import { LayoutComponent } from './layout/layout.component';
 import { TopnavbarComponent } from './topnavbar/topnavbar.component';
 import { SlideMenuComponent} from './slidemenu/slidemenu.component';
 import { RouterModule } from "@angular/router";
+import { BrowserAnimationsModule} from '@angular/platform-browser/animations'
 
 @NgModule({
     imports: [
@@ -16,7 +17,9 @@ import { RouterModule } from "@angular/router";
         ReactiveFormsModule,
         HttpModule,
         CommonModule,
-        MaterialImportModule
+        BrowserAnimationsModule,
+        MaterialImportModule,
+        
     ],
     declarations: [
         LayoutComponent,

@@ -52,7 +52,7 @@ namespace SharedCommunity.Apis
             using (IDbConnection dbConnection = _connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<OfficeDevThreadVM>("Select * from MsdnQuestionIndexEntity");
+                return dbConnection.Query<OfficeDevThreadVM>("Select * from msdn_question_index");
             }
         }
     }

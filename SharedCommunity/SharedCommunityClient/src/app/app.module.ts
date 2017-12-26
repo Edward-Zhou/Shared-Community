@@ -11,6 +11,8 @@ import { LowerCaseUrlSerializer } from "./helpers/lowerCaseUrlSerializer";
 import { ImageShareModule } from "./imageShare/imageShare.module";
 import { AuthGuard } from "./auth/authGuard.service";
 import { TokenInterceptor } from "./helpers/tokenInterceptor";
+import { ThreadShareModule } from 'app/Thread/threadShare.module';
+import { ShareFunnyModule } from 'app/ShareFunny/shareFunny.module';
 
 @NgModule({
     declarations: [
@@ -22,8 +24,9 @@ import { TokenInterceptor } from "./helpers/tokenInterceptor";
         BrowserModule,  
         AppRoutingModule,      
         LoginModule,
-        ImageShareModule
-              
+        ImageShareModule,
+        ThreadShareModule,
+        ShareFunnyModule              
     ],
     providers: [
         { 

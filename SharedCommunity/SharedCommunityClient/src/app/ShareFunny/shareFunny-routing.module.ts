@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LayoutComponent } from '../shared/layout/layout.component'
-import { ThreadShareComponent } from './threadShare/threadShare.component';
+import { ShareFunnyComponent } from './shareFunny/shareFunny.component';
 import { AuthGuard } from "app/auth/authGuard.service";
 
 const routes: Routes = [
@@ -9,8 +9,8 @@ const routes: Routes = [
       path: '', 
       component : LayoutComponent, 
       children:[{
-          path: 'threadshare',
-          component: ThreadShareComponent,
+          path: "sharefunny",
+          component: ShareFunnyComponent,
           canActivate: [AuthGuard]
         }]
     }
@@ -23,4 +23,4 @@ const routes: Routes = [
     exports: [RouterModule]
 })
 
-export class ThreadShareRoutingModule{}
+export class ShareFunnyRoutingModule{}

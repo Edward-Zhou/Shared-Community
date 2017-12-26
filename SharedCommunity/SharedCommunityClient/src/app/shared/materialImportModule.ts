@@ -1,16 +1,25 @@
-import { MatCardModule, MatIconModule} from '@angular/material';
-import { MatTableModule } from '@angular/material/table';
+import {MatSortModule,MatCheckboxModule,MatCardModule, MatIconModule,MatTableModule, MatPaginatorModule,MatTableDataSource, MatPaginator, MatInputModule} from '@angular/material';
 import { NgModule} from '@angular/core';
 
 @NgModule({
     imports:[
         MatCardModule,
         MatIconModule,
-        MatTableModule],
+        MatTableModule,
+        MatPaginatorModule,      
+        MatInputModule,
+        MatCheckboxModule,
+        MatSortModule
+    ],
     exports:[
         MatCardModule,
         MatIconModule,
-        MatTableModule],
+        MatTableModule,
+        MatPaginatorModule,   
+        MatInputModule,
+        MatCheckboxModule,
+        MatSortModule
+    ],
 })
 
 export class MaterialImportModule{}

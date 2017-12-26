@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Authorization;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System;
+using SharedCommunity.ViewModels;
 
 namespace SharedCommunity
 {
@@ -74,7 +75,9 @@ namespace SharedCommunity
             services.AddScoped<DbConnection>( _ => new SqlConnection(Configuration.GetConnectionString("DefaultConnection")));
             AuthConfigure.AddJwtBearer(services, Configuration);
 
-            services.AddMvc();
+            services.AddMvc(options=> {
+                options.OutputFormatters.Insert(0, new ResponseFormatter());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

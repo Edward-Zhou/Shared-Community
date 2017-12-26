@@ -7,6 +7,9 @@ import { NgModule} from '@angular/core';
         MatIconModule,
         MatPaginator, 
         MatTableDataSource],
+    declarations:[
+
+        ],
     exports:[
         MatCardModule,
         MatIconModule,
