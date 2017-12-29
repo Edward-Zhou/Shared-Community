@@ -13,6 +13,7 @@ import { AuthGuard } from "./auth/authGuard.service";
 import { TokenInterceptor } from "./helpers/tokenInterceptor";
 import { ThreadShareModule } from 'app/Thread/threadShare.module';
 import { ShareFunnyModule } from 'app/ShareFunny/shareFunny.module';
+import { ShareControlModule } from "app/shareControlDemo/shareControl.module";
 
 @NgModule({
     declarations: [
@@ -26,7 +27,8 @@ import { ShareFunnyModule } from 'app/ShareFunny/shareFunny.module';
         LoginModule,
         ImageShareModule,
         ThreadShareModule,
-        ShareFunnyModule              
+        ShareFunnyModule,
+        ShareControlModule              
     ],
     providers: [
         { 

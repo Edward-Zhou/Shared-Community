@@ -1,8 +1,11 @@
-<div class="example-container mat-elevation-z8 col-sm-10">
+
+<div class="example-container mat-elevation-z8">
     <div class="example-header" [style.display]="selection.isEmpty() ? '' : 'none'">
       <mat-input-container floatPlaceholder="never">
-        <input matInput #filter placeholder="Filter users">
+        <input matInput #filter placeholder="Filter users">        
       </mat-input-container>
+      <button mat-button>Thread Sync</button>
+      <button mat-button>Activity Sync</button>
     </div>
     <div class="example-header example-selection-header"
          *ngIf="!selection.isEmpty()">

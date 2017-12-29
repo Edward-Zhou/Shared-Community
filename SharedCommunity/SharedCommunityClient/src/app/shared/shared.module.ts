@@ -9,6 +9,7 @@ import { TopnavbarComponent } from './topnavbar/topnavbar.component';
 import { SlideMenuComponent} from './slidemenu/slidemenu.component';
 import { RouterModule } from "@angular/router";
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations'
+import { DataTableModule } from "app/control/table/table-index";
 
 @NgModule({
     imports: [
@@ -19,12 +20,14 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations'
         CommonModule,
         BrowserAnimationsModule,
         MaterialImportModule,
+        DataTableModule
         
     ],
     declarations: [
         LayoutComponent,
         TopnavbarComponent,
-        SlideMenuComponent
+        SlideMenuComponent,
+
     ],
     exports: [
         RouterModule,
@@ -35,7 +38,8 @@ import { BrowserAnimationsModule} from '@angular/platform-browser/animations'
         MaterialImportModule,
         LayoutComponent,
         TopnavbarComponent,
-        SlideMenuComponent
+        SlideMenuComponent,
+        DataTableModule
     ],
     providers: [
         AuthService
