@@ -69,6 +69,11 @@ namespace SharedCommunity
             //Add own services
             services.AddScoped<IRepository<Image>, Repository<Image>>();
             services.AddScoped<IImageService, ImageService>();
+
+            services.AddScoped<IMyServiceFactory, MyServiceFactory>();
+            services.AddScoped<MyParent>();
+            services.AddScoped<MyChild>();
+
             //Forum services
             services.AddScoped<ICommand, DownloadMSDNQuestions>((conn)=> new DownloadMSDNQuestions(Configuration.GetConnectionString("DefaultConnection")));
             //dapper

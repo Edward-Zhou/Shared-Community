@@ -15,12 +15,14 @@ namespace SharedCommunity.Apis
     public abstract class BaseController<TEntity> : Controller where TEntity : EntityBase
     {
         protected readonly IService<TEntity> _service;
+        protected readonly IMyService _myService;
         protected readonly ConstConfigOptions _constConfig;
         protected readonly JsonSerializerSettings _apiSerializerSettings;
 
-        protected BaseController(IService<TEntity> service, IOptions<ConstConfigOptions> constConfig)
+        protected BaseController(IService<TEntity> service, IOptions<ConstConfigOptions> constConfig, IMyServiceFactory myServiceFactory)
         {
             _service = service;
+            _myService = myServiceFactory.MyService();
             _constConfig = constConfig.Value;
             _apiSerializerSettings = new JsonSerializerSettings
             {
