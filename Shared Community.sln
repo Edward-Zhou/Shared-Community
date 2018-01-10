@@ -15,7 +15,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LemonCore.IO", "LemonCore.I
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedCommunity.IntegrationTest", "SharedCommunity.IntegrationTest\SharedCommunity.IntegrationTest.csproj", "{4910026E-E71C-4CF6-BB5A-8738A9DD35A7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedCommunity.XunitTest", "SharedCommunity.XunitTest\SharedCommunity.XunitTest.csproj", "{24F34009-B93B-44E2-A762-B309044A6774}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SharedCommunity.XunitTest", "SharedCommunity.XunitTest\SharedCommunity.XunitTest.csproj", "{24F34009-B93B-44E2-A762-B309044A6774}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{2044CA3A-60E2-4D63-A979-C3B208BE923C}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

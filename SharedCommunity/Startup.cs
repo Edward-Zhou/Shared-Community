@@ -20,6 +20,9 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System;
 using SharedCommunity.ViewModels;
+using SharedCommunity.Tasks.Pattern;
+using SharedCommunity.Tasks;
+using Microsoft.Extensions.Hosting;
 
 namespace SharedCommunity
 {
@@ -46,6 +49,8 @@ namespace SharedCommunity
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddSingleton<IDbContextFactory, DbContextFactory>();
             //Add CORS
             services.AddCors(options => {
                 options.AddPolicy("AllowAllOrigin",
@@ -82,6 +87,15 @@ namespace SharedCommunity
 
             services.AddMvc(options=> {
                 options.OutputFormatters.Insert(0, new ResponseFormatter());
+            });
+
+            //add scheduled tasks 
+            services.AddSingleton<IScheduledTask, ThreadTask>();
+            services.AddSingleton<IHostedService, DbTask>();
+            services.AddScheduler((sender, args) =>
+            {
+                Console.Write(args.Exception.Message);
+                args.SetObserved();
             });
         }
 
