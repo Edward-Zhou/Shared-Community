@@ -19,6 +19,7 @@
     <PackageReference Include="LinqKit.Microsoft.EntityFrameworkCore" Version="1.1.10" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="2.0.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.6.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.0.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.0.0" PrivateAssets="All" />
   </ItemGroup>
@@ -30,6 +31,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Views\ApplicationUsers\Create.cshtml" />
+    <None Include="Views\ApplicationUsers\Delete.cshtml" />
+    <None Include="Views\ApplicationUsers\Details.cshtml" />
+    <None Include="Views\ApplicationUsers\Edit.cshtml" />
+    <None Include="Views\ApplicationUsers\Index.cshtml" />
     <None Include="web.config" />
   </ItemGroup>
 

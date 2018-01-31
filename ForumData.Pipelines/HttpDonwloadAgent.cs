@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace ForumData.Pipelines
 {
@@ -11,9 +13,9 @@ namespace ForumData.Pipelines
         private const int DEFAULT_MAX_TRY_TIMES = 3;
         private const int TRY_AFTER_SECONDS = 1;
 
-        private int _maxTryTimes = DEFAULT_MAX_TRY_TIMES;
+        private static int _maxTryTimes = DEFAULT_MAX_TRY_TIMES;
 
-        public int MaxTryTimes
+        public static int MaxTryTimes
         {
             get
             {
@@ -30,33 +32,42 @@ namespace ForumData.Pipelines
             }
         }
 
-        private HttpClient _client;
+        private static HttpClient _client;
 
         public HttpDonwloadAgent()
         {
+            ServicePointManager.DefaultConnectionLimit = 20;
             _client = new HttpClient();
+
             var headers = _client.DefaultRequestHeaders;
             headers.Add("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8");
             headers.Add("Cache-Control", "keep-alive");
             headers.Add("Accept-Language", "en-US,en;q=0.8,zh-Hans-CN;q=0.5,zh-Hans;q=0.3");
             headers.Add("User-Agent", "Mozilla/5.0 (Windows NT 6.1; rv:16.0) Gecko/20100101 Firefox/16.0");
+
         }
 
-        public string GetString(string url)
+        public static async Task<string> GetString(string url)
         {
-            return GetString(url, Encoding.UTF8);
+           
+            // the code that you want to measure comes here
+            
+            string s= await GetString(url, Encoding.UTF8);
+            
+            Console.WriteLine(DateTime.Now.ToLongTimeString());
+            return s;
         }
 
-        public string GetString(string url, Encoding encoding)
+        public static async Task<string> GetString(string url, Encoding encoding)
         {
-            using (var stream = GetStream(url))
+            using (var stream = await GetStream(url))
             using (var reader = new StreamReader(stream, encoding))
             {
                 return reader.ReadToEnd();
             }
         }
 
-        public Stream GetStream(string url)
+        public static async Task<Stream> GetStream(string url)
         {
             Exception ex = null;
 
@@ -64,7 +75,7 @@ namespace ForumData.Pipelines
             {
                 try
                 {
-                    return _client.GetStreamAsync(url).Result;
+                    return await _client.GetStreamAsync(url);
                 }
                 catch (Exception e)
                 {

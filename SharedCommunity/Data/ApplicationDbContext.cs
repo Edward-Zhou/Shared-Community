@@ -37,5 +37,6 @@ namespace SharedCommunity.Data
             //forum tables
             builder.Entity<MsdnQuestionIndexEntity>().ToTable("msdn_question_index");
         }
+        public DbSet<SharedCommunity.Models.ApplicationUser> ApplicationUser { get; set; }
     }
 }

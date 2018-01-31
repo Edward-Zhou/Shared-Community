@@ -6,13 +6,14 @@ using LemonCore.IO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ForumData.Pipelines
 {
     public class DownloadMSDNQuestions : ICommand
     {
         private readonly string _localStageConnectionString;
-        private const string URL_FORMAT = "https://social.msdn.microsoft.com/Forums/office/en-US/home?forum={0}&filter={1}&sort={2}&brandIgnore=true&page={3}";
+        private const string URL_FORMAT = "https://social.msdn.microsoft.com/Forums/office/en-US/home?forum={0}&filter={1}&sort={2}&brandIgnore=true&page={3}&outputas=xml";
         private HttpDonwloadAgent _agent;
 
         public DownloadMSDNQuestions(string localStageConnectionString)
@@ -32,8 +33,8 @@ namespace ForumData.Pipelines
             var pipeline = new Pipeline { BoundedCapacity = 20 };
             var writter = new SqlDataWriter<MsdnQuestionIndexEntity>(_localStageConnectionString, "msdn_question_index", WriteMode.Upsert);
             pipeline.DataSource(new DatasourceWrapper<string>(GenerateRequests(forumId, filter, sort, pageNum)))
-                     .Transform(url => _agent.GetString(url))
-                     .TransformMany(html => MsdnIndexPageParser.Parse(html, DateTime.Now))
+                     .Transform(async url => await HttpDonwloadAgent.GetString(url))
+                     .TransformMany(html => MsdnIndexPageParser.Parse(html.Result, DateTime.Now))
                      .Output(writter);
 
             return PipelineUtil.BuildAndRun(pipeline);
@@ -49,6 +50,14 @@ namespace ForumData.Pipelines
             }
             return requests;
         }
+
+        //private static string GetHtml(HttpDonwloadAgent agent, string url)
+        //{
+        //    var task = Task.Factory.StartNew(() => {
+        //        agent.GetString(url);
+        //    });
+        //    return task.resul
+        //}
 
         //private IEnumerable<string> GenerateRequests(string forumId, string filter, string sort, int pageNum = 23)
         //{

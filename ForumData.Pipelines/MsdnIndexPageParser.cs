@@ -11,6 +11,7 @@ namespace ForumData.Pipelines
     {
         public static IEnumerable<MsdnQuestionIndexEntity> Parse(string html, DateTime referTimestamp)
         {
+            //var watch = System.Diagnostics.Stopwatch.StartNew();
             var list = new List<MsdnQuestionIndexEntity>();
             var htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(html);
@@ -66,6 +67,9 @@ namespace ForumData.Pipelines
                     Forum = forum
                 });
             }
+           // watch.Stop();
+            //var elapsedMs = watch.ElapsedMilliseconds;
+            //Console.WriteLine(elapsedMs);
             return list;
         }
         public static DateTime ParseDateTimeString(string dateTimeString, DateTime refer)

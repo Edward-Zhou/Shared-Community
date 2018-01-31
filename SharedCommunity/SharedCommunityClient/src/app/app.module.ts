@@ -14,6 +14,7 @@ import { TokenInterceptor } from "./helpers/tokenInterceptor";
 import { ThreadShareModule } from 'app/Thread/threadShare.module';
 import { ShareFunnyModule } from 'app/ShareFunny/shareFunny.module';
 import { ShareControlModule } from "app/shareControlDemo/shareControl.module";
+import { ThreadService } from 'app/services/thread.service';
 
 @NgModule({
     declarations: [
@@ -42,8 +43,12 @@ import { ShareControlModule } from "app/shareControlDemo/shareControl.module";
         { 
             provide: UrlSerializer, 
             useClass: LowerCaseUrlSerializer
-        },
-        [AuthGuard]
+        },        
+        [
+            AuthGuard,
+            ThreadService
+        ]
+        
     ],
     bootstrap: [MainComponent]
 })

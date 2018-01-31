@@ -46,13 +46,16 @@ namespace SharedCommunity.Apis
             return "OK";
         }
         [HttpGet]
-        [Route("Threads")]
-        public async Task<IEnumerable<OfficeDevThreadVM>> Threads()
+        [Route("Threads/{StartDate}/{EndDate}")]
+        public async Task<IEnumerable<OfficeDevThreadVM>> Threads(string StartDate, string EndDate)
         {
             using (IDbConnection dbConnection = _connection)
             {
                 dbConnection.Open();
-                return dbConnection.Query<OfficeDevThreadVM>("Select * from msdn_question_index");
+                string query = String.Format("Select * from msdn_question_index where CreatedOn between '{0}' and '{1}'",
+                    StartDate,
+                    EndDate);
+                return dbConnection.Query<OfficeDevThreadVM>(query);
             }
         }
     }
