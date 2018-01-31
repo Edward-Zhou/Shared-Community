@@ -11,6 +11,7 @@ namespace ForumData.Pipelines
     {
         public static IEnumerable<MsdnQuestionIndexEntity> Parse(string html, DateTime referTimestamp)
         {
+            Console.WriteLine("MsdnIndexPageParser" + DateTime.Now.ToLongTimeString());
             //var watch = System.Diagnostics.Stopwatch.StartNew();
             var list = new List<MsdnQuestionIndexEntity>();
             var htmlDocument = new HtmlDocument();

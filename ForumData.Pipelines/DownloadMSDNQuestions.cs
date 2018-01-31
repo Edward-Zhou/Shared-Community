@@ -33,7 +33,7 @@ namespace ForumData.Pipelines
             var pipeline = new Pipeline { BoundedCapacity = 20 };
             var writter = new SqlDataWriter<MsdnQuestionIndexEntity>(_localStageConnectionString, "msdn_question_index", WriteMode.Upsert);
             pipeline.DataSource(new DatasourceWrapper<string>(GenerateRequests(forumId, filter, sort, pageNum)))
-                     .Transform(async url => await HttpDonwloadAgent.GetString(url))
+                     .Transform(async url => await _agent.GetString(url))
                      .TransformMany(html => MsdnIndexPageParser.Parse(html.Result, DateTime.Now))
                      .Output(writter);
 

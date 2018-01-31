@@ -13,9 +13,9 @@ namespace ForumData.Pipelines
         private const int DEFAULT_MAX_TRY_TIMES = 3;
         private const int TRY_AFTER_SECONDS = 1;
 
-        private static int _maxTryTimes = DEFAULT_MAX_TRY_TIMES;
+        private int _maxTryTimes = DEFAULT_MAX_TRY_TIMES;
 
-        public static int MaxTryTimes
+        public int MaxTryTimes
         {
             get
             {
@@ -32,11 +32,11 @@ namespace ForumData.Pipelines
             }
         }
 
-        private static HttpClient _client;
+        private HttpClient _client;
 
         public HttpDonwloadAgent()
         {
-            ServicePointManager.DefaultConnectionLimit = 20;
+            ServicePointManager.DefaultConnectionLimit = 10;
             _client = new HttpClient();
 
             var headers = _client.DefaultRequestHeaders;
@@ -47,18 +47,19 @@ namespace ForumData.Pipelines
 
         }
 
-        public static async Task<string> GetString(string url)
+        public async Task<string> GetString(string url)
         {
-           
-            // the code that you want to measure comes here
-            
+            Uri uri = new Uri("https://social.msdn.microsoft.com");
+            ServicePoint sp = ServicePointManager.FindServicePoint(uri);
+            sp.ConnectionLimit = 10;
+
             string s= await GetString(url, Encoding.UTF8);
-            
-            Console.WriteLine(DateTime.Now.ToLongTimeString());
+
+            Console.WriteLine("GetString" + DateTime.Now.ToLongTimeString());
             return s;
         }
 
-        public static async Task<string> GetString(string url, Encoding encoding)
+        public async Task<string> GetString(string url, Encoding encoding)
         {
             using (var stream = await GetStream(url))
             using (var reader = new StreamReader(stream, encoding))
@@ -67,7 +68,7 @@ namespace ForumData.Pipelines
             }
         }
 
-        public static async Task<Stream> GetStream(string url)
+        public async Task<Stream> GetStream(string url)
         {
             Exception ex = null;
 
