@@ -15,6 +15,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ForumData.Pipelines\ForumData.Pipelines.csproj" />
     <ProjectReference Include="..\SharedCommunity\SharedCommunity.csproj" />
   </ItemGroup>
 

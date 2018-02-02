@@ -29,13 +29,15 @@ namespace ForumData.Pipelines
             string filter = tokens[1];
             string sort = tokens[2];
             int pageNum = int.Parse(tokens[3]);
+            int processorCount = Environment.ProcessorCount;
 
             var pipeline = new Pipeline { BoundedCapacity = 20 };
+
             var writter = new SqlDataWriter<MsdnQuestionIndexEntity>(_localStageConnectionString, "msdn_question_index", WriteMode.Upsert);
             pipeline.DataSource(new DatasourceWrapper<string>(GenerateRequests(forumId, filter, sort, pageNum)))
-                     .Transform(async url => await _agent.GetString(url))
-                     .TransformMany(html => MsdnIndexPageParser.Parse(html.Result, DateTime.Now))
-                     .Output(writter);
+                     .Transform(url => _agent.GetString(url), processorCount)
+                     .TransformMany(html => MsdnIndexPageParser.Parse(html, DateTime.Now), processorCount)
+                     .Output(writter, processorCount);
 
             return PipelineUtil.BuildAndRun(pipeline);
 

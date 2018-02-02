@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace LemonCore.IO
 {
@@ -29,6 +30,7 @@ namespace LemonCore.IO
 
         public void Write(T record)
         {
+            Thread.Sleep(2000);
             var json = Newtonsoft.Json.JsonConvert.SerializeObject(record);
 
             Console.WriteLine("[{0}]-{1}", _index, json);

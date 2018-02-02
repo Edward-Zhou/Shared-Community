@@ -47,21 +47,15 @@ namespace ForumData.Pipelines
 
         }
 
-        public async Task<string> GetString(string url)
+        public string GetString(string url)
         {
-            Uri uri = new Uri("https://social.msdn.microsoft.com");
-            ServicePoint sp = ServicePointManager.FindServicePoint(uri);
-            sp.ConnectionLimit = 10;
-
-            string s= await GetString(url, Encoding.UTF8);
-
-            Console.WriteLine("GetString" + DateTime.Now.ToLongTimeString());
+            string s = GetString(url, Encoding.UTF8).Result;
             return s;
         }
 
         public async Task<string> GetString(string url, Encoding encoding)
         {
-            using (var stream = await GetStream(url))
+            var stream = await GetStream(url);
             using (var reader = new StreamReader(stream, encoding))
             {
                 return reader.ReadToEnd();

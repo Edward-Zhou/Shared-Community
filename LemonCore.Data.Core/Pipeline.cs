@@ -50,7 +50,7 @@ namespace LemonCore.Core
             bufferBlock.LinkTo(
                 target,
                 new DataflowLinkOptions
-                {
+                {                   
                     PropagateCompletion = true
                 });
 

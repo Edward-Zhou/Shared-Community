@@ -23,7 +23,7 @@ namespace ForumData.Pipelines.MSDN
         }
         public static MsdnQuestionIndexEntity Parse(MsdnQuestionIndexEntity entity)
         {
-            string html = _agent.GetString(GenerateRequest(entity.CreatedBy)).Result;
+            string html = _agent.GetString(GenerateRequest(entity.CreatedBy));
             entity.LastActiveOn = LastActiveOn(html);
             return entity;
         }

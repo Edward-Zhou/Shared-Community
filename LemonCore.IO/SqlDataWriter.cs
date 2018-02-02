@@ -104,7 +104,6 @@ namespace LemonCore.IO
 
         public void Write(T record)
         {
-            Console.WriteLine("SqlDataWriter" + DateTime.Now.ToLongTimeString());
             for (int i = 0; i < TIMEOUT_MAX_TRY_TIMES; i++)
             {
                 try

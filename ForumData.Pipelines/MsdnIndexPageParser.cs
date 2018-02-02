@@ -3,6 +3,7 @@ using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Web;
 
 namespace ForumData.Pipelines
@@ -11,8 +12,6 @@ namespace ForumData.Pipelines
     {
         public static IEnumerable<MsdnQuestionIndexEntity> Parse(string html, DateTime referTimestamp)
         {
-            Console.WriteLine("MsdnIndexPageParser" + DateTime.Now.ToLongTimeString());
-            //var watch = System.Diagnostics.Stopwatch.StartNew();
             var list = new List<MsdnQuestionIndexEntity>();
             var htmlDocument = new HtmlDocument();
             htmlDocument.LoadHtml(html);
@@ -68,9 +67,6 @@ namespace ForumData.Pipelines
                     Forum = forum
                 });
             }
-           // watch.Stop();
-            //var elapsedMs = watch.ElapsedMilliseconds;
-            //Console.WriteLine(elapsedMs);
             return list;
         }
         public static DateTime ParseDateTimeString(string dateTimeString, DateTime refer)

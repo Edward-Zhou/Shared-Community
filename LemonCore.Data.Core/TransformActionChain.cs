@@ -58,11 +58,12 @@ namespace LemonCore.Core
             return new TransformActionChain<TTarget>(node);
         }
 
-        public void Output(IDataWriter<TSource> writer)
+        public void Output(IDataWriter<TSource> writer, int? maxDegreeOfParallelism = null)
         {
             ActionNode<TSource> next = new ActionNode<TSource>
             {
-                Write = new Action<TSource>(writer.Write)
+                Write = new Action<TSource>(writer.Write),
+                MaxDegreeOfParallelism = maxDegreeOfParallelism
             };
             if (this._current.NodeType == NodeType.SourceNode || this._current.NodeType == NodeType.TransformNode || this._current.NodeType == NodeType.TransformManyNode)
             {
